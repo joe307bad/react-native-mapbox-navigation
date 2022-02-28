@@ -1,25 +1,57 @@
-import {
-  requireNativeComponent,
-  UIManager,
-  Platform,
-  ViewStyle,
-} from 'react-native';
+import * as React from 'react';
+import { requireNativeComponent, StyleSheet } from 'react-native';
 
-const LINKING_ERROR =
-  `The package 'react-native-mapbox-navigation' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+type Coordinate = [number, number];
 
-type MapboxNavigationProps = {
-  style: ViewStyle;
+type OnLocationChangeEvent = {
+  nativeEvent?: {
+    latitude: number;
+    longitude: number;
+  };
 };
 
-const ComponentName = 'MapboxNavigationView';
+type OnRouteProgressChangeEvent = {
+  nativeEvent?: {
+    distanceTraveled: number;
+    durationRemaining: number;
+    fractionTraveled: number;
+    distanceRemaining: number;
+  };
+};
 
-export const MapboxNavigationView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<MapboxNavigationProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+type OnErrorEvent = {
+  nativeEvent?: {
+    message?: string;
+  };
+};
+
+export interface IMapboxNavigationProps {
+  origin: Coordinate;
+  destination: Coordinate;
+  shouldSimulateRoute?: boolean;
+  onLocationChange?: (event: OnLocationChangeEvent) => void;
+  onRouteProgressChange?: (event: OnRouteProgressChangeEvent) => void;
+  onError?: (event: OnErrorEvent) => void;
+  onCancelNavigation?: () => void;
+  onArrive?: () => void;
+  showsEndOfRouteFeedback?: boolean;
+  hideStatusView?: boolean;
+  mute?: boolean;
+}
+
+const MapboxNavigation = (props: IMapboxNavigationProps) => {
+  return <RNMapboxNavigation style={styles.container} {...props} />;
+};
+
+const RNMapboxNavigation = requireNativeComponent(
+  'MapboxNavigation',
+  MapboxNavigation
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default MapboxNavigation;
