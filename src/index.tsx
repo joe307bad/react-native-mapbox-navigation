@@ -12,7 +12,6 @@ const LINKING_ERROR =
   '- You are not using Expo managed workflow\n';
 
 type MapboxNavigationProps = {
-  color: string;
   style: ViewStyle;
 };
 

@@ -1,27 +1,4 @@
-# react-native-mapbox-navigation
-
-Turn by turn navigation for React Native using the Mapbox SDK
-
-## Installation
-
-```sh
-npm install react-native-mapbox-navigation
+### Helpful link
 ```
-
-## Usage
-
-```js
-import { MapboxNavigationView } from "react-native-mapbox-navigation";
-
-// ...
-
-<MapboxNavigationView color="tomato" />
+https://www.codementor.io/@uokesita/installing-react-native-mapbox-navigation-in-ios-1fjkpch8j4
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
